@@ -9,4 +9,6 @@ route.get("/users/:userId", userControllers.getSingleUser);
 
 route.get("/users", userControllers.getAllUser);
 
+route.put("/users/:userId", userControllers.updateSingleUser);
+
 export const userRoute = route;
