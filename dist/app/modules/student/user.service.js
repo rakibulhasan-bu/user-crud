@@ -21,7 +21,7 @@ const getSingleUserService = (userId) => __awaiter(void 0, void 0, void 0, funct
     return yield user_model_1.default.findOne({ userId });
 });
 const getAllUserService = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield user_model_1.default.find({});
+    return yield user_model_1.default.find({}).select("username fullName age email address");
 });
 const updateSingleUserService = (userId, updateUser) => __awaiter(void 0, void 0, void 0, function* () {
     return yield user_model_1.default.findOneAndUpdate({ userId }, updateUser, {

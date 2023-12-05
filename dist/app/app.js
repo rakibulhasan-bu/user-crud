@@ -15,4 +15,15 @@ app.use("/api", user_route_1.userRoute);
 app.get("/", (_req, res) => {
     res.send(`User CRUD server is working perfectly`);
 });
+// unknown route handling
+app.all("*", (req, res) => {
+    res.status(400).json({
+        success: false,
+        message: `Route ${req.originalUrl} cannot found`,
+        error: {
+            code: 404,
+            description: "Please provide an valid Route",
+        },
+    });
+});
 exports.default = app;

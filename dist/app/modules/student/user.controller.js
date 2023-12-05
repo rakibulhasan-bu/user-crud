@@ -32,7 +32,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             res.status(400).json({
                 success: false,
                 message: "Please give valid data!",
-                data: error === null || error === void 0 ? void 0 : error.issues,
+                error: error === null || error === void 0 ? void 0 : error.issues,
             });
         }
     }
@@ -41,6 +41,16 @@ const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const { userId } = req.params;
         const result = yield user_service_1.userService.getSingleUserService(userId);
+        if (!result) {
+            res.status(400).json({
+                success: false,
+                message: "User not found!",
+                error: {
+                    code: 404,
+                    description: "User not found please provide an valid user id",
+                },
+            });
+        }
         res.status(200).json({
             success: true,
             message: "User fetched successfully!",
@@ -48,7 +58,14 @@ const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "User not found!",
+            error: {
+                code: 404,
+                description: "User not found please provide an valid user id",
+            },
+        });
     }
 });
 const getAllUser = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -61,7 +78,14 @@ const getAllUser = (_req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
     catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "User not found!",
+            error: {
+                code: 404,
+                description: "User not found",
+            },
+        });
     }
 });
 const updateSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -76,7 +100,14 @@ const updateSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
         });
     }
     catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "User not found!",
+            error: {
+                code: 404,
+                description: "User not found please provide an valid user id",
+            },
+        });
     }
 });
 const deleteSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -90,7 +121,14 @@ const deleteSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
         });
     }
     catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "User not found!",
+            error: {
+                code: 404,
+                description: "User not found please provide an valid user id",
+            },
+        });
     }
 });
 const addOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -111,7 +149,14 @@ const addOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "User not found!",
+            error: {
+                code: 404,
+                description: "User not found please provide an valid user id",
+            },
+        });
     }
 });
 const getAllOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -131,7 +176,14 @@ const getAllOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         });
     }
     catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "User not found!",
+            error: {
+                code: 404,
+                description: "User not found please provide an valid user id",
+            },
+        });
     }
 });
 const totalPriceOfOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -145,7 +197,14 @@ const totalPriceOfOrder = (req, res) => __awaiter(void 0, void 0, void 0, functi
         });
     }
     catch (error) {
-        console.log(error);
+        res.status(400).json({
+            success: false,
+            message: "User not found!",
+            error: {
+                code: 404,
+                description: "User not found please provide an valid user id",
+            },
+        });
     }
 });
 exports.userControllers = {

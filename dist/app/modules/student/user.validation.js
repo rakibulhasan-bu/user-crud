@@ -12,7 +12,7 @@ const addressValidationSchema = zod_1.z.object({
 exports.userValidationSchema = zod_1.z.object({
     userId: zod_1.z.number(),
     username: zod_1.z.string(),
-    password: zod_1.z.string(),
+    password: zod_1.z.string().max(20),
     fullName: zod_1.z.object({
         firstName: zod_1.z.string(),
         lastName: zod_1.z.string(),
