@@ -5,8 +5,16 @@ const creteUserService = async (userData: TUser) => {
   return await User.create(userData);
 };
 
+const getSingleUserService = async (userId: string) => {
+  return await User.findOne({ userId });
+};
+
 const getAllUserService = async () => {
   return await User.find({});
 };
 
-export const userService = { creteUserService, getAllUserService };
+export const userService = {
+  creteUserService,
+  getSingleUserService,
+  getAllUserService,
+};
