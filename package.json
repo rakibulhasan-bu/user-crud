@@ -29,5 +29,8 @@
     "mongoose": "^8.0.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
   }
 }

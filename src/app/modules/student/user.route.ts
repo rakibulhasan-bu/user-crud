@@ -13,4 +13,6 @@ route.put("/users/:userId", userControllers.updateSingleUser);
 
 route.put("/users/:userId/orders", userControllers.addOrder);
 
+route.get("/users/:userId/orders", userControllers.getAllOrder);
+
 export const userRoute = route;

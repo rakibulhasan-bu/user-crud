@@ -6,10 +6,12 @@ const createUser = async (req: Request, res: Response) => {
     const user = req.body;
     const result = await userService.creteUserService(user);
 
+    const changeResult = { ...result.toObject(), password: undefined };
+
     res.status(201).json({
       success: true,
       message: "User created successfully!",
-      data: result,
+      data: changeResult,
     });
   } catch (error: unknown) {
     console.log(error);
@@ -66,11 +68,62 @@ const addOrder = async (req: Request, res: Response) => {
     const { userId } = req.params;
     const order = req.body;
     const result = await userService.addOrderService(userId, order);
-    console.log(result);
+
+    if (!result) {
+      res.status(404).json({
+        success: false,
+        message: "Order created unsuccessful!",
+      });
+    }
+
     res.status(200).json({
       success: true,
       message: "Order created successfully!",
       data: null,
+    });
+  } catch (error: unknown) {
+    console.log(error);
+  }
+};
+
+const getAllOrder = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const result = await userService.getSingleUserService(userId);
+
+    if (!result) {
+      res.status(404).json({
+        success: false,
+        message: "Order found unsuccessful!",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Order fetched successfully!",
+      data: { orders: result?.orders },
+    });
+  } catch (error: unknown) {
+    console.log(error);
+  }
+};
+
+const totalPriceOfOrder = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const result = await userService.getSingleUserService(userId);
+
+    if (!result) {
+      res.status(404).json({
+        success: false,
+        message: "Order found unsuccessful!",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Order fetched successfully!",
+      data: { orders: result?.orders },
     });
   } catch (error: unknown) {
     console.log(error);
@@ -83,4 +136,6 @@ export const userControllers = {
   getAllUser,
   updateSingleUser,
   addOrder,
+  getAllOrder,
+  totalPriceOfOrder,
 };
