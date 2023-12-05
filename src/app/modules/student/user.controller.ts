@@ -1,11 +1,18 @@
 import { Request, Response } from "express";
 import { userService } from "./user.service";
+import { userValidationSchema } from "./user.validation";
+import { ZodError } from "zod";
 
 const createUser = async (req: Request, res: Response) => {
   try {
     const user = req.body;
-    const result = await userService.creteUserService(user);
 
+    //using validation with zod
+    const zodParseUser = userValidationSchema.parse(user);
+
+    const result = await userService.creteUserService(zodParseUser);
+
+    //remove password from result
     const changeResult = { ...result.toObject(), password: undefined };
 
     res.status(201).json({
@@ -14,7 +21,13 @@ const createUser = async (req: Request, res: Response) => {
       data: changeResult,
     });
   } catch (error: unknown) {
-    console.log(error);
+    if (error instanceof ZodError) {
+      res.status(400).json({
+        success: false,
+        message: "Please give valid data!",
+        data: error?.issues,
+      });
+    }
   }
 };
 
@@ -111,19 +124,12 @@ const getAllOrder = async (req: Request, res: Response) => {
 const totalPriceOfOrder = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
-    const result = await userService.getSingleUserService(userId);
-
-    if (!result) {
-      res.status(404).json({
-        success: false,
-        message: "Order found unsuccessful!",
-      });
-    }
+    const result = await userService.orderPriceSumService(Number(userId));
 
     res.status(200).json({
       success: true,
-      message: "Order fetched successfully!",
-      data: { orders: result?.orders },
+      message: "Total price calculated successfully!",
+      data: result,
     });
   } catch (error: unknown) {
     console.log(error);

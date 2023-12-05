@@ -28,10 +28,34 @@ const addOrderService = async (userId: string, order: TOrder) => {
   );
 };
 
+const orderPriceSumService = async (userId: number) => {
+  return await User.aggregate([
+    { $match: { userId } },
+    {
+      $unwind: "$orders",
+    },
+    {
+      $group: {
+        _id: null,
+        totalPrice: {
+          $sum: { $multiply: ["$orders.price", "$orders.quantity"] },
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        totalPrice: 1,
+      },
+    },
+  ]);
+};
+
 export const userService = {
   creteUserService,
   getSingleUserService,
   getAllUserService,
   updateSingleUserService,
   addOrderService,
+  orderPriceSumService,
 };
