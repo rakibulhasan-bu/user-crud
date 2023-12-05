@@ -3,7 +3,7 @@ import { userService } from "./user.service";
 
 const createUser = async (req: Request, res: Response) => {
   try {
-    const { user } = req.body;
+    const user = req.body;
     const result = await userService.creteUserService(user);
 
     res.status(201).json({
@@ -48,7 +48,7 @@ const getAllUser = async (_req: Request, res: Response) => {
 const updateSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
-    const { user } = req.body;
+    const user = req.body;
     const result = await userService.updateSingleUserService(userId, user);
 
     res.status(200).json({
@@ -61,9 +61,26 @@ const updateSingleUser = async (req: Request, res: Response) => {
   }
 };
 
+const addOrder = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    const order = req.body;
+    const result = await userService.addOrderService(userId, order);
+    console.log(result);
+    res.status(200).json({
+      success: true,
+      message: "Order created successfully!",
+      data: null,
+    });
+  } catch (error: unknown) {
+    console.log(error);
+  }
+};
+
 export const userControllers = {
   createUser,
   getSingleUser,
   getAllUser,
   updateSingleUser,
+  addOrder,
 };

@@ -1,3 +1,4 @@
+import { TOrder } from "../order/order.interface";
 import { TUser } from "./user.interface";
 import User from "./user.model";
 
@@ -19,9 +20,18 @@ const updateSingleUserService = async (userId: string, updateUser: TUser) => {
   });
 };
 
+const addOrderService = async (userId: string, order: TOrder) => {
+  return await User.findOneAndUpdate(
+    { userId },
+    { $push: { orders: order } },
+    { new: true }
+  );
+};
+
 export const userService = {
   creteUserService,
   getSingleUserService,
   getAllUserService,
   updateSingleUserService,
+  addOrderService,
 };
