@@ -2,11 +2,11 @@
 
 Server Live Link
 
-### https://assignment-server-l2.vercel.app/
+### https://user-crud-pi.vercel.app/
 
 ## Run the server application locally
 
-If you want to run the server on your computer, run the command `tsc -w` in another terminal to convert the TypeScript code to JavaScript code. And start the server with `npm start` command.
+If you want to run the server on your computer, firstly clone this project and then run `npm install` and then run the command `npm run build` in another terminal to convert the TypeScript code to JavaScript code. And start the server with `npm run start:dev` command.
 
 ## Server Documentation
 
@@ -38,7 +38,7 @@ Endpoint: PUT `/api/users/:userId`
 
 Endpoint: DELETE `/api/users/:userId`
 
-### 6. Add New Product in Order
+### 6. Add New Product of Order in user
 
 Endpoint: PUT `/api/users/:userId/orders`
 

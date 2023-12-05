@@ -25,7 +25,7 @@ const createUser = async (req: Request, res: Response) => {
       res.status(400).json({
         success: false,
         message: "Please give valid data!",
-        data: error?.issues,
+        error: error?.issues,
       });
     }
   }
@@ -36,13 +36,31 @@ const getSingleUser = async (req: Request, res: Response) => {
     const { userId } = req.params;
     const result = await userService.getSingleUserService(userId);
 
+    if (!result) {
+      res.status(400).json({
+        success: false,
+        message: "User not found!",
+        error: {
+          code: 404,
+          description: "User not found please provide an valid user id",
+        },
+      });
+    }
+
     res.status(200).json({
       success: true,
       message: "User fetched successfully!",
       data: result,
     });
   } catch (error: unknown) {
-    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "User not found!",
+      error: {
+        code: 404,
+        description: "User not found please provide an valid user id",
+      },
+    });
   }
 };
 
@@ -56,7 +74,14 @@ const getAllUser = async (_req: Request, res: Response) => {
       data: result,
     });
   } catch (error: unknown) {
-    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "User not found!",
+      error: {
+        code: 404,
+        description: "User not found",
+      },
+    });
   }
 };
 
@@ -72,7 +97,14 @@ const updateSingleUser = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error: unknown) {
-    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "User not found!",
+      error: {
+        code: 404,
+        description: "User not found please provide an valid user id",
+      },
+    });
   }
 };
 
@@ -87,7 +119,14 @@ const deleteSingleUser = async (req: Request, res: Response) => {
       data: null,
     });
   } catch (error: unknown) {
-    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "User not found!",
+      error: {
+        code: 404,
+        description: "User not found please provide an valid user id",
+      },
+    });
   }
 };
 
@@ -110,7 +149,14 @@ const addOrder = async (req: Request, res: Response) => {
       data: null,
     });
   } catch (error: unknown) {
-    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "User not found!",
+      error: {
+        code: 404,
+        description: "User not found please provide an valid user id",
+      },
+    });
   }
 };
 
@@ -132,7 +178,14 @@ const getAllOrder = async (req: Request, res: Response) => {
       data: { orders: result?.orders },
     });
   } catch (error: unknown) {
-    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "User not found!",
+      error: {
+        code: 404,
+        description: "User not found please provide an valid user id",
+      },
+    });
   }
 };
 
@@ -147,7 +200,14 @@ const totalPriceOfOrder = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error: unknown) {
-    console.log(error);
+    res.status(400).json({
+      success: false,
+      message: "User not found!",
+      error: {
+        code: 404,
+        description: "User not found please provide an valid user id",
+      },
+    });
   }
 };
 

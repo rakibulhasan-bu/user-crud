@@ -11,7 +11,7 @@ const getSingleUserService = async (userId: string) => {
 };
 
 const getAllUserService = async () => {
-  return await User.find({});
+  return await User.find({}).select("username fullName age email address");
 };
 
 const updateSingleUserService = async (userId: string, updateUser: TUser) => {
