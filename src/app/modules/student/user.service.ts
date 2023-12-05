@@ -5,4 +5,8 @@ const creteUserService = async (userData: TUser) => {
   return await User.create(userData);
 };
 
-export const userService = { creteUserService };
+const getAllUserService = async () => {
+  return await User.find({});
+};
+
+export const userService = { creteUserService, getAllUserService };
