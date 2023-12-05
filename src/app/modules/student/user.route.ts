@@ -11,6 +11,8 @@ route.get("/users", userControllers.getAllUser);
 
 route.put("/users/:userId", userControllers.updateSingleUser);
 
+route.delete("/users/:userId", userControllers.deleteSingleUser);
+
 route.put("/users/:userId/orders", userControllers.addOrder);
 
 route.get("/users/:userId/orders", userControllers.getAllOrder);

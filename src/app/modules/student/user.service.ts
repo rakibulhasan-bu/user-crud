@@ -20,6 +20,10 @@ const updateSingleUserService = async (userId: string, updateUser: TUser) => {
   });
 };
 
+const deleteUserService = async (userId: string) => {
+  return await User.deleteOne({ userId });
+};
+
 const addOrderService = async (userId: string, order: TOrder) => {
   return await User.findOneAndUpdate(
     { userId },
@@ -56,6 +60,7 @@ export const userService = {
   getSingleUserService,
   getAllUserService,
   updateSingleUserService,
+  deleteUserService,
   addOrderService,
   orderPriceSumService,
 };

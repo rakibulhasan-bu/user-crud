@@ -76,6 +76,21 @@ const updateSingleUser = async (req: Request, res: Response) => {
   }
 };
 
+const deleteSingleUser = async (req: Request, res: Response) => {
+  try {
+    const { userId } = req.params;
+    await userService.deleteUserService(userId);
+
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully!",
+      data: null,
+    });
+  } catch (error: unknown) {
+    console.log(error);
+  }
+};
+
 const addOrder = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
@@ -141,6 +156,7 @@ export const userControllers = {
   getSingleUser,
   getAllUser,
   updateSingleUser,
+  deleteSingleUser,
   addOrder,
   getAllOrder,
   totalPriceOfOrder,
