@@ -18,6 +18,19 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const user = req.body;
         //using validation with zod
         const zodParseUser = user_validation_1.userValidationSchema.parse(user);
+        const id = Number(zodParseUser.userId);
+        const userName = zodParseUser.username;
+        const singleUser = yield user_service_1.userService.getSingleUserService(id);
+        if ((singleUser === null || singleUser === void 0 ? void 0 : singleUser.userId) === id || (singleUser === null || singleUser === void 0 ? void 0 : singleUser.username) === userName) {
+            res.status(400).json({
+                success: false,
+                message: "Duplicate user id or username!",
+                error: {
+                    code: 404,
+                    description: "Please provide an unique user id and unique username",
+                },
+            });
+        }
         const result = yield user_service_1.userService.creteUserService(zodParseUser);
         //remove password from result
         const changeResult = Object.assign(Object.assign({}, result.toObject()), { password: undefined });
@@ -40,7 +53,7 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 const getSingleUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId } = req.params;
-        const result = yield user_service_1.userService.getSingleUserService(userId);
+        const result = yield user_service_1.userService.getSingleUserService(Number(userId));
         if (!result) {
             res.status(400).json({
                 success: false,
@@ -162,7 +175,7 @@ const addOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 const getAllOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { userId } = req.params;
-        const result = yield user_service_1.userService.getSingleUserService(userId);
+        const result = yield user_service_1.userService.getSingleUserService(Number(userId));
         if (!result) {
             res.status(404).json({
                 success: false,

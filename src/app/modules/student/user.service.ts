@@ -6,7 +6,7 @@ const creteUserService = async (userData: TUser) => {
   return await User.create(userData);
 };
 
-const getSingleUserService = async (userId: string) => {
+const getSingleUserService = async (userId: number) => {
   return await User.findOne({ userId });
 };
 

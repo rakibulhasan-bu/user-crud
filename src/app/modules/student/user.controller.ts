@@ -9,6 +9,20 @@ const createUser = async (req: Request, res: Response) => {
 
     //using validation with zod
     const zodParseUser = userValidationSchema.parse(user);
+    const id = Number(zodParseUser.userId);
+    const userName = zodParseUser.username;
+    const singleUser = await userService.getSingleUserService(id);
+
+    if (singleUser?.userId === id || singleUser?.username === userName) {
+      res.status(400).json({
+        success: false,
+        message: "Duplicate user id or username!",
+        error: {
+          code: 404,
+          description: "Please provide an unique user id and unique username",
+        },
+      });
+    }
 
     const result = await userService.creteUserService(zodParseUser);
 
@@ -34,7 +48,7 @@ const createUser = async (req: Request, res: Response) => {
 const getSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
-    const result = await userService.getSingleUserService(userId);
+    const result = await userService.getSingleUserService(Number(userId));
 
     if (!result) {
       res.status(400).json({
@@ -163,7 +177,7 @@ const addOrder = async (req: Request, res: Response) => {
 const getAllOrder = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
-    const result = await userService.getSingleUserService(userId);
+    const result = await userService.getSingleUserService(Number(userId));
 
     if (!result) {
       res.status(404).json({
